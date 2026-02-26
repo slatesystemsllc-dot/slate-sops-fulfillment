@@ -210,7 +210,7 @@
             <p><strong>When:</strong> After client grants GMB access</p>
             <p><strong>Time:</strong> ~25 minutes per client</p>
             <p><strong>Last Updated:</strong> Feb 26, 2026</p>
-            <p><strong>Version:</strong> 2.5 - Added critical GMB review link warning</p>
+            <p><strong>Version:</strong> 2.6 - Added critical inline warning box for GMB review link</p>
         </div>
 
         <button class="toc-toggle" onclick="toggleToc()">
@@ -349,6 +349,14 @@
         </ul>
 
         <blockquote><strong>WARNING:</strong> Must use the <code>g.page/r/.../review</code> format from "Ask for reviews". Do NOT use regular Google Maps links (<code>maps.app.goo.gl/...</code> or <code>google.com/maps/place/...</code>) - those just show the business page, not the review form. The <code>/review</code> suffix opens the review dialog directly.</blockquote>
+
+        <div style="background: #7f1d1d; border: 2px solid #ef4444; padding: 1rem; border-radius: 8px; margin: 1.5rem 0;">
+            <strong style="color: #fecaca;">CRITICAL: Do NOT skip this step</strong>
+            <p style="margin-top: 0.5rem; margin-bottom: 0; color: #fecaca;">
+                If the GMB review link is missing or incorrect, the Review Survey will loop forever waiting for a valid redirect URL. The 4-5 star buttons won't work, and customers will be stuck on the survey page.<br><br>
+                <strong>Always test:</strong> After setting these values, visit the Review Survey page and click a 4-star or 5-star rating to confirm it redirects to Google.
+            </p>
+        </div>
 
         <h3>Google Map Embed</h3>
 
@@ -734,7 +742,7 @@
         <hr>
 
         <p><em>Last updated: Feb 26, 2026</em></p>
-        <p><em>Version: 2.5 - Added critical GMB review link warning, custom values for /my-links page</em></p>
+        <p><em>Version: 2.6 - Added critical inline warning box for GMB review link</em></p>
 
         <div class="page-nav">
             <a href="a2p-submission.html" class="prev">
