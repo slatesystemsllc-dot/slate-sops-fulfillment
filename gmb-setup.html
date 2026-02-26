@@ -209,8 +209,8 @@
             <p><strong>Role:</strong> Fulfillment Specialist</p>
             <p><strong>When:</strong> After client grants GMB access</p>
             <p><strong>Time:</strong> ~25 minutes per client</p>
-            <p><strong>Last Updated:</strong> Feb 23, 2026</p>
-            <p><strong>Version:</strong> 2.2 - Schema type guidance, escalation added</p>
+            <p><strong>Last Updated:</strong> Feb 26, 2026</p>
+            <p><strong>Version:</strong> 2.4 - Added review_request_form_link and conversations_link custom values</p>
         </div>
 
         <button class="toc-toggle" onclick="toggleToc()">
@@ -352,6 +352,29 @@
             <li>Copy the <code>&lt;iframe&gt;</code> code</li>
             <li>Modify dimensions: <code>width="450" height="400"</code></li>
             <li>Enter in: <strong>Custom Values</strong> - <code>google_map_embed</code></li>
+        </ol>
+
+        <h3>Review Request Form Link</h3>
+
+        <p>This is the link to the /marketing-form page where clients enter customer info to trigger the review funnel.</p>
+
+        <ol>
+            <li>Get the client's website domain</li>
+            <li>Construct the URL: <code>https://www.[domain].com/marketing-form</code></li>
+            <li>Enter in: <strong>Custom Values</strong> - <code>review_request_form_link</code></li>
+        </ol>
+
+        <blockquote><strong>Why this matters:</strong> This is the KEY link for clients. When they finish a job, they go here to enter customer info, which triggers the automated review request sequence.</blockquote>
+
+        <h3>Conversations Link</h3>
+
+        <p>This is the direct link to the client's GHL Conversations tab.</p>
+
+        <ol>
+            <li>In the client's sub-account, go to <strong>Conversations</strong></li>
+            <li>Copy the full URL from the browser address bar</li>
+            <li>It should look like: <code>https://app.gohighlevel.com/v2/location/[locationId]/conversations/conversations</code></li>
+            <li>Enter in: <strong>Custom Values</strong> - <code>conversations_link</code></li>
         </ol>
 
         <h2 id="step4">Step 4: Verify Reviews AI (3 min)</h2>
@@ -539,6 +562,8 @@
             <li class="checkbox-item"><input type="checkbox" disabled> <code>review_request_link</code> filled (same as above)</li>
             <li class="checkbox-item"><input type="checkbox" disabled> <code>review_google_url</code> filled (same as above - powers Survey redirect)</li>
             <li class="checkbox-item"><input type="checkbox" disabled> <code>google_map_embed</code> filled (450x400 dimensions)</li>
+            <li class="checkbox-item"><input type="checkbox" disabled> <code>review_request_form_link</code> filled (client's /marketing-form URL)</li>
+            <li class="checkbox-item"><input type="checkbox" disabled> <code>conversations_link</code> filled (client's GHL conversations URL)</li>
         </ul>
 
         <h3>Reputation Features</h3>
@@ -701,8 +726,8 @@
 
         <hr>
 
-        <p><em>Last updated: Feb 23, 2026</em></p>
-        <p><em>Version: 2.2 - Fixed phone terminology, added schema type guidance, added escalation</em></p>
+        <p><em>Last updated: Feb 26, 2026</em></p>
+        <p><em>Version: 2.4 - Added review_request_form_link and conversations_link custom values for /my-links page</em></p>
 
         <div class="page-nav">
             <a href="a2p-submission.html" class="prev">
