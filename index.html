@@ -2,199 +2,233 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Slate Systems - Fulfillment Portal</title>
+    <title>Fulfillment Portal - Slate Systems</title>
     <style>
+        :root { --navy: #152a45; --gray: #525c69; --orange: #ee7000; --white: #ffffff; --dark-bg: #0d1a2d; --card-bg: #1a2d47; --border: #2a4060; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: #0f172a;
-            color: #e2e8f0;
-            min-height: 100vh;
-            line-height: 1.6;
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--dark-bg); color: var(--white); line-height: 1.6; }
+
+        .top-nav {
+            background: var(--navy);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--orange);
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
         }
-        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
-        header { text-align: center; padding: 3rem 0; border-bottom: 1px solid #1e293b; margin-bottom: 3rem; }
-        .logo { font-size: 2rem; font-weight: 700; color: #f59e0b; margin-bottom: 0.5rem; }
-        .subtitle { color: #94a3b8; font-size: 1.1rem; }
-        .portal-badge {
-            display: inline-block;
-            background: #f59e0b;
-            color: black;
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 1rem;
-        }
-        .section { margin-bottom: 3rem; }
-        .section-title {
-            font-size: 1.5rem;
-            color: #f8fafc;
-            margin-bottom: 1.5rem;
+        .top-nav::-webkit-scrollbar { display: none; }
+        .nav-container {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            min-width: max-content;
+            padding: 0 1rem;
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
         }
-        .section-title::before {
-            content: '';
-            width: 4px;
-            height: 1.5rem;
-            background: #f59e0b;
-            border-radius: 2px;
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-shrink: 0;
+            padding: 0.6rem 0;
         }
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-        .card {
-            background: #1e293b;
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-            border: 1px solid #334155;
+        .nav-logo { height: 28px; width: auto; }
+        .nav-subtitle {
+            background: var(--orange);
+            color: var(--white);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
         }
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-            border-color: #f59e0b;
+        .nav-links { display: flex; gap: 0; }
+        .nav-link {
+            color: var(--white);
+            text-decoration: none;
+            padding: 0.75rem 0.9rem;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            border-bottom: 2px solid transparent;
+            margin-bottom: -2px;
+            transition: all 0.2s;
+            opacity: 0.7;
         }
-        .card a { text-decoration: none; color: inherit; }
-        .card-title { font-size: 1.1rem; color: #f8fafc; margin-bottom: 0.5rem; font-weight: 600; }
-        .card-description { color: #94a3b8; font-size: 0.9rem; }
-        .card-meta {
+        .nav-link:hover { opacity: 1; background: rgba(255,255,255,0.05); }
+        .nav-link.active { opacity: 1; border-bottom-color: var(--orange); }
+
+        .main { max-width: 900px; margin: 0 auto; padding: 1.5rem 1rem; }
+
+        .section { margin-bottom: 2rem; scroll-margin-top: 70px; }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--orange);
+            color: var(--orange);
+        }
+
+        .links-list { display: flex; flex-direction: column; gap: 0.5rem; }
+        .links-list a {
+            background: var(--card-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--white);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid #334155;
-            font-size: 0.8rem;
-            color: #64748b;
+            border: 1px solid var(--border);
+            transition: border-color 0.2s;
         }
-        .step { background: #f59e0b; padding: 0.25rem 0.5rem; border-radius: 4px; color: black; font-weight: 600; }
+        .links-list a:hover { border-color: var(--orange); }
+        .link-content { flex: 1; }
+        .link-title { font-weight: 600; font-size: 0.95rem; margin-bottom: 0.25rem; }
+        .link-desc { font-size: 0.8rem; color: var(--gray); }
+        .arrow { color: var(--orange); font-size: 1.2rem; margin-left: 1rem; }
+
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+        .badge-step { background: var(--orange); color: white; }
+
         footer {
             text-align: center;
-            padding: 2rem;
-            color: #64748b;
-            font-size: 0.875rem;
-            border-top: 1px solid #1e293b;
-            margin-top: 3rem;
+            padding: 1.5rem;
+            color: var(--gray);
+            font-size: 0.8rem;
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
         }
+        footer a { color: var(--orange); }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="logo">Slate Systems</div>
-            <div class="subtitle">Fulfillment Standard Operating Procedures</div>
-            <span class="portal-badge">Fulfillment Portal</span>
-        </header>
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <img src="assets/Slate_Systems_Logo_White.png" alt="Slate" class="nav-logo">
+                <span class="nav-subtitle">FULFILLMENT</span>
+            </div>
+            <div class="nav-links">
+                <a href="#build" class="nav-link active">Build Process</a>
+                <a href="#setup" class="nav-link">Setup</a>
+                <a href="#qa" class="nav-link">QA</a>
+                <a href="#tools" class="nav-link">Tools</a>
+            </div>
+        </div>
+    </nav>
 
-        <main>
-            <section class="section">
-                <h2 class="section-title">Client Build Process (In Order)</h2>
-                <div class="card-grid">
-                    <div class="card">
-                        <a href="client-build.html">
-                            <div class="card-title">Client Build Process</div>
-                            <div class="card-description">Complete sub-account setup from start to finish - the master SOP</div>
-                            <div class="card-meta">
-                                <span class="step">Step 1</span>
-                                <span>25 min read</span>
-                            </div>
-                        </a>
+    <main class="main">
+        <section class="section" id="build">
+            <h2 class="section-title">Client Build Process (In Order)</h2>
+            <div class="links-list">
+                <a href="client-build.html">
+                    <div class="link-content">
+                        <div class="link-title">Client Build Process <span class="badge badge-step">Start Here</span></div>
+                        <div class="link-desc">Complete sub-account setup from start to finish - the master SOP</div>
                     </div>
-                    <div class="card">
-                        <a href="a2p-submission.html">
-                            <div class="card-title">A2P Submission</div>
-                            <div class="card-description">10DLC registration for SMS compliance - submit during build</div>
-                            <div class="card-meta">
-                                <span class="step">Step 2</span>
-                                <span>10 min read</span>
-                            </div>
-                        </a>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="a2p-submission.html">
+                    <div class="link-content">
+                        <div class="link-title">A2P Submission <span class="badge badge-step">Step 2</span></div>
+                        <div class="link-desc">10DLC registration for SMS compliance</div>
                     </div>
-                    <div class="card">
-                        <a href="logo-processing.html">
-                            <div class="card-title">Logo Processing</div>
-                            <div class="card-description">Download, resize, create in Canva if needed</div>
-                            <div class="card-meta">
-                                <span class="step">Step 3</span>
-                                <span>5 min read</span>
-                            </div>
-                        </a>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="gmb-setup.html">
+                    <div class="link-content">
+                        <div class="link-title">GMB Setup <span class="badge badge-step">Step 3</span></div>
+                        <div class="link-desc">Google Business Profile connection and verification</div>
                     </div>
-                    <div class="card">
-                        <a href="gmb-setup.html">
-                            <div class="card-title">GMB Setup</div>
-                            <div class="card-description">Connect Google Business Profile to GHL</div>
-                            <div class="card-meta">
-                                <span class="step">Step 4</span>
-                                <span>8 min read</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="nav-cleanup.html">
-                            <div class="card-title">Navigation Cleanup</div>
-                            <div class="card-description">Remove unused service/area pages from menu</div>
-                            <div class="card-meta">
-                                <span class="step">Step 5</span>
-                                <span>5 min read</span>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="pre-launch-checklist.html">
-                            <div class="card-title">Pre-Launch Checklist</div>
-                            <div class="card-description">Complete QA before scheduling launch call - the final check</div>
-                            <div class="card-meta">
-                                <span class="step">Final</span>
-                                <span>15 min read</span>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </section>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
 
-            <section class="section">
-                <h2 class="section-title">Troubleshooting & Fixes</h2>
-                <div class="card-grid">
-                    <div class="card">
-                        <a href="selective-regeneration.html">
-                            <div class="card-title">Selective Regeneration</div>
-                            <div class="card-description">Fix specific content fields using the regen tool</div>
-                            <div class="card-meta">
-                                <span>When needed</span>
-                                <span>5 min read</span>
-                            </div>
-                        </a>
+        <section class="section" id="setup">
+            <h2 class="section-title">Setup & Configuration</h2>
+            <div class="links-list">
+                <a href="logo-processing.html">
+                    <div class="link-content">
+                        <div class="link-title">Logo Processing</div>
+                        <div class="link-desc">Canva resize workflow for all logo variations</div>
                     </div>
-                </div>
-            </section>
-
-            <section class="section">
-                <h2 class="section-title">Technical Reference</h2>
-                <div class="card-grid">
-                    <div class="card">
-                        <a href="../agents/content-generator.html">
-                            <div class="card-title">Content Generator</div>
-                            <div class="card-description">How the AI content generation system works</div>
-                            <div class="card-meta">
-                                <span>Technical</span>
-                                <span>15 min read</span>
-                            </div>
-                        </a>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="nav-cleanup.html">
+                    <div class="link-content">
+                        <div class="link-title">Navigation Cleanup</div>
+                        <div class="link-desc">Website nav structure and page organization</div>
                     </div>
-                </div>
-            </section>
-        </main>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="selective-regeneration.html">
+                    <div class="link-content">
+                        <div class="link-title">Selective Regeneration</div>
+                        <div class="link-desc">Re-running content generation for specific sections</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
 
-        <footer>
-            <p>&copy; 2026 Slate Systems LLC. Internal use only.</p>
-            <p style="margin-top: 0.5rem;">Last updated: February 22, 2026</p>
-        </footer>
-    </div>
+        <section class="section" id="qa">
+            <h2 class="section-title">Quality Assurance</h2>
+            <div class="links-list">
+                <a href="pre-launch-checklist.html">
+                    <div class="link-content">
+                        <div class="link-title">Pre-Launch Checklist</div>
+                        <div class="link-desc">Final QA before scheduling launch call</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="section" id="tools">
+            <h2 class="section-title">Tools & Reference</h2>
+            <div class="links-list">
+                <a href="https://help.slatesystems.io" target="_blank">
+                    <div class="link-content">
+                        <div class="link-title">Help Center</div>
+                        <div class="link-desc">Client-facing help documentation</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+                <a href="https://guides.slatesystems.io" target="_blank">
+                    <div class="link-content">
+                        <div class="link-title">GMB Guide</div>
+                        <div class="link-desc">Client GMB setup instructions</div>
+                    </div>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>© 2026 Slate Systems | <a href="https://sops.slatesystems.io">Admin Portal</a></footer>
+
+    <script>
+        document.querySelectorAll('.nav-link[href^="#"]').forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(link.getAttribute('href'))?.scrollIntoView({behavior:'smooth'});
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
+            });
+        });
+    </script>
 </body>
 </html>
