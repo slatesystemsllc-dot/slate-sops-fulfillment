@@ -209,8 +209,8 @@
             <p><strong>Role:</strong> Fulfillment Specialist</p>
             <p><strong>Trigger:</strong> Deal won, payment taken</p>
             <p><strong>Goal:</strong> Client ready for launch call in &lt;10 days</p>
-            <p><strong>Last Updated:</strong> Feb 23, 2026</p>
-            <p><strong>Version:</strong> 3.2 - Added escalation, TOC day links, schema guidance</p>
+            <p><strong>Last Updated:</strong> Feb 26, 2026</p>
+            <p><strong>Version:</strong> 3.3 - Added /my-links page build, new custom values, 18 workflows</p>
         </div>
 
         <button class="toc-toggle" onclick="toggleToc()">
@@ -245,8 +245,8 @@
   AUTOMATIC (SaaS Configurator)
   +-------------------------------------------------------------------------+
   | - Sub-account created from Carlsbad snapshot                            |
-  | - All 16 workflows active                                               |
-  | - 294 custom value structure ready                                      |
+  | - All 18 workflows active                                               |
+  | - 296 custom value structure ready                                      |
   | - Reviews AI agent configured                                           |
   +------------------------------------+------------------------------------+
                                        |
@@ -426,7 +426,7 @@ DAY 9-14: LAUNCH
 
         <p>Content Generator receives 23 fields via webhook, scrapes existing website, awaits Build Notes.</p>
 
-        <h3>Output: 294 Custom Values in Client Sub-Account</h3>
+        <h3>Output: 296 Custom Values in Client Sub-Account</h3>
 
         <p><strong>ID Mapping:</strong> <code>slate-carlsbad-custom-value-ids.json</code></p>
 
@@ -445,7 +445,9 @@ DAY 9-14: LAUNCH
                 <tr><td>Phone numbers</td><td>0</td><td>3</td></tr>
                 <tr><td>Website/GMB links</td><td>0</td><td>5</td></tr>
                 <tr><td>Logo/main image</td><td>0</td><td>2</td></tr>
-                <tr><td><strong>TOTALS</strong></td><td><strong>~282</strong></td><td><strong>~12</strong></td></tr>
+                <tr><td>Review funnel links</td><td>0</td><td>2</td></tr>
+                <tr><td>Conversations link</td><td>0</td><td>1</td></tr>
+                <tr><td><strong>TOTALS</strong></td><td><strong>~282</strong></td><td><strong>~14</strong></td></tr>
             </tbody>
         </table>
 
@@ -628,6 +630,27 @@ DAY 9-14: LAUNCH
 
         <p>See <a href="gmb-setup.html">GMB Setup SOP</a> for complete process.</p>
 
+        <div style="background: #7f1d1d; border: 2px solid #ef4444; padding: 1rem; border-radius: 8px; margin: 1.5rem 0;">
+            <strong style="color: #fecaca;">⚠️ CRITICAL: Set review_request_form_link</strong>
+            <p style="margin-top: 0.5rem; margin-bottom: 0; color: #fecaca;">
+                After setting GMB review link, you MUST set <code>review_request_form_link</code> custom value:<br>
+                <code>https://[domain].com/marketing-form</code><br><br>
+                <strong>If missing:</strong> When client submits a customer to the review funnel, the workflow will loop forever waiting for this link.
+            </p>
+        </div>
+
+        <h4>Task 13b: Set Review Funnel Custom Values (2 min) - AFTER GMB</h4>
+        <table>
+            <thead>
+                <tr><th>Custom Value</th><th>Value</th></tr>
+            </thead>
+            <tbody>
+                <tr><td><code>review_request_form_link</code></td><td><code>https://[domain].com/marketing-form</code></td></tr>
+                <tr><td><code>conversations_link</code></td><td>GHL → Conversations tab URL for this location</td></tr>
+            </tbody>
+        </table>
+        <p><strong>These are required for /my-links page to work properly.</strong></p>
+
         <h4>Task 14: Verify Reviews AI (3 min) - PARALLEL</h4>
         <ul>
             <li>Reputation - Settings - Reviews AI</li>
@@ -669,6 +692,25 @@ DAY 9-14: LAUNCH
   "url": "{{custom_values.company_website_link}}",
   "telephone": "{{custom_values.company_twilio_phone}}"
 }&lt;/script&gt;</code></pre>
+
+        <h4>Task 17b: Build /my-links Page (5 min) - AFTER Custom Values Set</h4>
+        <p>Client-facing page with all their important links. <strong>Requires custom values from Task 13b.</strong></p>
+        <ol>
+            <li>Sites → [Website] → Pages → Add New Page</li>
+            <li>Path: <code>/my-links</code></li>
+            <li>Add Section → Row → Column → Code Element</li>
+            <li>Paste code from <a href="my-links-code.html">My Links Code Block</a></li>
+            <li>Preview and verify all links work</li>
+        </ol>
+        <p><strong>Custom values used:</strong></p>
+        <ul>
+            <li><code>company_name</code> - business name in header</li>
+            <li><code>company_website_link</code> - website card</li>
+            <li><code>company_twilio_phone</code> - phone card (copies to clipboard)</li>
+            <li><code>company_gmb_link</code> - Google Business Profile link</li>
+            <li><code>review_request_form_link</code> - marketing form for review funnel</li>
+            <li><code>conversations_link</code> - GHL conversations tab</li>
+        </ul>
 
         <hr>
 
@@ -808,8 +850,8 @@ DAY 9-14: LAUNCH
 
         <hr>
 
-        <p><em>Last updated: Feb 23, 2026</em></p>
-        <p><em>Version: 3.2 - Added: Escalation section, expanded TOC with day links, fixed task numbering, schema type guidance, improved Task 19 details</em></p>
+        <p><em>Last updated: Feb 26, 2026</em></p>
+        <p><em>Version: 3.3 - Added: /my-links page build (Task 17b), review_request_form_link + conversations_link custom values, 18 workflows, critical warning for review funnel link</em></p>
 
         <div class="page-nav">
             <div></div>
