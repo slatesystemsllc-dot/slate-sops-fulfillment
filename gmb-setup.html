@@ -209,8 +209,8 @@
             <p><strong>Role:</strong> Fulfillment Specialist</p>
             <p><strong>When:</strong> After client grants GMB access</p>
             <p><strong>Time:</strong> ~25 minutes per client</p>
-            <p><strong>Last Updated:</strong> Feb 26, 2026</p>
-            <p><strong>Version:</strong> 2.6 - Added critical inline warning box for GMB review link</p>
+            <p><strong>Last Updated:</strong> Feb 27, 2026</p>
+            <p><strong>Version:</strong> 2.7 - Synced with onboarding wiki updates</p>
         </div>
 
         <button class="toc-toggle" onclick="toggleToc()">
@@ -260,9 +260,11 @@
         <h3>Get Client Access</h3>
 
         <ol>
-            <li><strong>SMS sent automatically:</strong> WF-OB3 sends GMB access request with guides.slatesystems.io link</li>
+            <li><strong>SMS sent automatically:</strong> "1. Client Paid - Send Onboarding Info" sends GMB access request immediately after payment (guides.slatesystems.io link)</li>
+            <li><strong>Reminder loop:</strong> "1.5 GMB Reminder Loop" follows up every 48h until client grants access (exits when tag <code>gmb-access-granted</code> is added)</li>
             <li><strong>Client action:</strong> They follow guide to grant manager access to <code>hello@slatesystems.io</code></li>
             <li><strong>Verify:</strong> Check agency Gmail for invitation, accept it</li>
+            <li><strong>Exit loop:</strong> Add tag <code>gmb-access-granted</code> to stop reminders</li>
         </ol>
 
         <h3>Connect in GHL</h3>
@@ -741,8 +743,8 @@
 
         <hr>
 
-        <p><em>Last updated: Feb 26, 2026</em></p>
-        <p><em>Version: 2.6 - Added critical inline warning box for GMB review link</em></p>
+        <p><em>Last updated: Feb 27, 2026</em></p>
+        <p><em>Version: 2.7 - Synced with onboarding wiki: GMB request now in WF1 (immediately after payment), added WF1.5 GMB Reminder Loop info</em></p>
 
         <div class="page-nav">
             <a href="a2p-submission.html" class="prev">
