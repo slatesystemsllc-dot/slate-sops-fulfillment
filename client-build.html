@@ -209,8 +209,8 @@
             <p><strong>Role:</strong> Fulfillment Specialist</p>
             <p><strong>Trigger:</strong> Deal won, payment taken</p>
             <p><strong>Goal:</strong> Client ready for launch call in &lt;10 days</p>
-            <p><strong>Last Updated:</strong> Feb 26, 2026</p>
-            <p><strong>Version:</strong> 3.3 - Added /my-links page build, new custom values, 18 workflows</p>
+            <p><strong>Last Updated:</strong> Feb 27, 2026</p>
+            <p><strong>Version:</strong> 3.4 - Synced with onboarding wiki updates</p>
         </div>
 
         <button class="toc-toggle" onclick="toggleToc()">
@@ -250,12 +250,14 @@
   | - Reviews AI agent configured                                           |
   +------------------------------------+------------------------------------+
                                        |
-  AUTOMATIC (WF-OB1)                   |
+  AUTOMATIC (1. Client Paid - Send Onboarding Info)
   +------------------------------------v------------------------------------+
   | - Welcome SMS sent with onboarding form link                            |
-  | - Tag: onboarding-form-pending                                          |
+  | - GMB access request SMS (guides.slatesystems.io)                       |
+  | - Tag: onboarding-form-pending, gmb-requested                           |
   | - Pipeline: Client Delivery - Onboarding Form Sent                      |
-  | - WF-OB2 starts: reminders every 48h                                    |
+  | - WF2 starts: reminders every 48h                                       |
+  | - WF1.5 GMB Reminder Loop starts (exits when gmb-access-granted)        |
   +------------------------------------+------------------------------------+
                                        |
                               [CLIENT FILLS FORM]
@@ -264,9 +266,9 @@
 DAY 1-3: FORM SUBMITTED                |
 =======================================|========================================
 
-  AUTOMATIC (WF-OB3)                   |
+  AUTOMATIC (3. Form Submitted - Start Build)
   +------------------------------------v------------------------------------+
-  | - GMB access request SMS (links to guides.slatesystems.io)              |
+  | - Confirmation SMS (GMB already requested in WF1)                       |
   | - Tag: onboarding-form-pending removed                                  |
   | - Pipeline: - Form Received                                             |
   | - Internal notification                                                 |
@@ -324,7 +326,7 @@ DAY 2-8: BUILDING      |                               |
   |                                                                          |
   +--------------------------------------------------------------------------+
 
-  AUTOMATIC (WF-OB4)
+  AUTOMATIC (4. A2P In Progress - Build Check-Ins)
   +--------------------------------------------------------------------------+
   | - Day 1: SMS - Project started                                           |
   | - Day 2: SMS - Timeline                                                  |
@@ -378,11 +380,11 @@ DAY 8-9: QA REVIEW
 DAY 9-14: LAUNCH
 ================================================================================
 
-  AUTOMATIC (WF-OB5)
+  AUTOMATIC (5. Launch Call Booked - Reminders)
   +--------------------------------------------------------------------------+
   | - Confirmation SMS/email                                                 |
   | - 24-hour reminder                                                       |
-  | - 1-hour reminder                                                        |
+  | - 1-hour reminder (internal: GOOGLE MEET link)                           |
   | - 10-minute reminder with link                                           |
   +------------------------------------+-------------------------------------+
                                        |
@@ -393,14 +395,13 @@ DAY 9-14: LAUNCH
   | - Move to Active stage                                                   |
   +------------------------------------+-------------------------------------+
                                        |
-  AUTOMATIC (WF-OB6)                   |
+  AUTOMATIC (6. Post-Launch - Tutorial + Check-ins)
   +------------------------------------v-------------------------------------+
   | - Tag: currentclient                                                     |
-  | - Day 0: Tutorial video SMS + email                                      |
+  | - Day 0: Help site SMS + email (help.slatesystems.io)                    |
   | - Day 1: Review system reminder                                          |
   | - Day 3: Scam warning                                                    |
   | - Day 8: Check-in                                                        |
-  | - Day 22: Testimonial ask                                                |
   +--------------------------------------------------------------------------+
 </code></pre>
 
@@ -850,8 +851,8 @@ DAY 9-14: LAUNCH
 
         <hr>
 
-        <p><em>Last updated: Feb 26, 2026</em></p>
-        <p><em>Version: 3.3 - Added: /my-links page build (Task 17b), review_request_form_link + conversations_link custom values, 18 workflows, critical warning for review funnel link</em></p>
+        <p><em>Last updated: Feb 27, 2026</em></p>
+        <p><em>Version: 3.4 - Synced with onboarding wiki: GMB request moved to WF1 (immediate), WF1.5 GMB Reminder Loop added, WF6 uses help.slatesystems.io (not tutorial video), testimonial ask removed</em></p>
 
         <div class="page-nav">
             <div></div>
