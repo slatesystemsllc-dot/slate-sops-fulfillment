@@ -209,8 +209,8 @@
             <p><strong>Role:</strong> Fulfillment Specialist</p>
             <p><strong>Trigger:</strong> Deal won, payment taken</p>
             <p><strong>Goal:</strong> Client ready for launch call in &lt;10 days</p>
-            <p><strong>Last Updated:</strong> Feb 27, 2026</p>
-            <p><strong>Version:</strong> 3.4 - Synced with onboarding wiki updates</p>
+            <p><strong>Last Updated:</strong> Feb 23, 2026</p>
+            <p><strong>Version:</strong> 3.2 - Added escalation, TOC day links, schema guidance</p>
         </div>
 
         <button class="toc-toggle" onclick="toggleToc()">
@@ -242,22 +242,25 @@
 <pre><code>DAY 0: DEAL WON + PAYMENT
 ================================================================================
 
-  AUTOMATIC (SaaS Configurator)
+  AUTOMATIC (SaaS Welcome Email)
   +-------------------------------------------------------------------------+
-  | - Sub-account created from Main Snapshot snapshot                            |
-  | - All 18 workflows active                                               |
-  | - 296 custom value structure ready                                      |
-  | - Reviews AI agent configured                                           |
+  | - "Activate Your Account" email sent immediately                        |
+  | - From: noreply@donotreply.acct-mgmt.com (GHL system)                   |
   +------------------------------------+------------------------------------+
                                        |
-  AUTOMATIC (1. Client Paid - Send Onboarding Info)
+  MANUAL (Admin Activation)            |
   +------------------------------------v------------------------------------+
-  | - Welcome SMS sent with onboarding form link                            |
-  | - GMB access request SMS (guides.slatesystems.io)                       |
-  | - Tag: onboarding-form-pending, gmb-requested                           |
+  | - Admin goes to Agency → Sub-Accounts → click new account → activate   |
+  | - Sub-account created from Main Snapshot                                |
+  | - All 16 workflows active, 324 custom values ready                      |
+  +------------------------------------+------------------------------------+
+                                       |
+  AUTOMATIC (WF-OB1 - 2 min after activation)
+  +------------------------------------v------------------------------------+
+  | - Onboarding email + Welcome SMS sent                                   |
+  | - Tag: onboarding-form-pending                                          |
   | - Pipeline: Client Delivery - Onboarding Form Sent                      |
-  | - WF2 starts: reminders every 48h                                       |
-  | - WF1.5 GMB Reminder Loop starts (exits when gmb-access-granted)        |
+  | - WF-OB2 starts: reminders every 48h                                    |
   +------------------------------------+------------------------------------+
                                        |
                               [CLIENT FILLS FORM]
@@ -266,9 +269,9 @@
 DAY 1-3: FORM SUBMITTED                |
 =======================================|========================================
 
-  AUTOMATIC (3. Form Submitted - Start Build)
+  AUTOMATIC (WF-OB3)                   |
   +------------------------------------v------------------------------------+
-  | - Confirmation SMS (GMB already requested in WF1)                       |
+  | - GMB access request SMS (links to guides.slatesystems.io)              |
   | - Tag: onboarding-form-pending removed                                  |
   | - Pipeline: - Form Received                                             |
   | - Internal notification                                                 |
@@ -326,7 +329,7 @@ DAY 2-8: BUILDING      |                               |
   |                                                                          |
   +--------------------------------------------------------------------------+
 
-  AUTOMATIC (4. A2P In Progress - Build Check-Ins)
+  AUTOMATIC (WF-OB4)
   +--------------------------------------------------------------------------+
   | - Day 1: SMS - Project started                                           |
   | - Day 2: SMS - Timeline                                                  |
@@ -380,11 +383,11 @@ DAY 8-9: QA REVIEW
 DAY 9-14: LAUNCH
 ================================================================================
 
-  AUTOMATIC (5. Launch Call Booked - Reminders)
+  AUTOMATIC (WF-OB5)
   +--------------------------------------------------------------------------+
   | - Confirmation SMS/email                                                 |
   | - 24-hour reminder                                                       |
-  | - 1-hour reminder (internal: GOOGLE MEET link)                           |
+  | - 1-hour reminder                                                        |
   | - 10-minute reminder with link                                           |
   +------------------------------------+-------------------------------------+
                                        |
@@ -395,13 +398,14 @@ DAY 9-14: LAUNCH
   | - Move to Active stage                                                   |
   +------------------------------------+-------------------------------------+
                                        |
-  AUTOMATIC (6. Post-Launch - Tutorial + Check-ins)
+  AUTOMATIC (WF-OB6)                   |
   +------------------------------------v-------------------------------------+
   | - Tag: currentclient                                                     |
-  | - Day 0: Help site SMS + email (help.slatesystems.io)                    |
+  | - Day 0: Tutorial video SMS + email                                      |
   | - Day 1: Review system reminder                                          |
   | - Day 3: Scam warning                                                    |
   | - Day 8: Check-in                                                        |
+  | - Day 22: Testimonial ask                                                |
   +--------------------------------------------------------------------------+
 </code></pre>
 
@@ -427,7 +431,7 @@ DAY 9-14: LAUNCH
 
         <p>Content Generator receives 23 fields via webhook, scrapes existing website, awaits Build Notes.</p>
 
-        <h3>Output: 296 Custom Values in Client Sub-Account</h3>
+        <h3>Output: 324 Custom Values in Client Sub-Account</h3>
 
         <p><strong>ID Mapping:</strong> <code>slate-carlsbad-custom-value-ids.json</code></p>
 
@@ -446,9 +450,7 @@ DAY 9-14: LAUNCH
                 <tr><td>Phone numbers</td><td>0</td><td>3</td></tr>
                 <tr><td>Website/GMB links</td><td>0</td><td>5</td></tr>
                 <tr><td>Logo/main image</td><td>0</td><td>2</td></tr>
-                <tr><td>Review funnel links</td><td>0</td><td>2</td></tr>
-                <tr><td>Conversations link</td><td>0</td><td>1</td></tr>
-                <tr><td><strong>TOTALS</strong></td><td><strong>~282</strong></td><td><strong>~14</strong></td></tr>
+                <tr><td><strong>TOTALS</strong></td><td><strong>~282</strong></td><td><strong>~12</strong></td></tr>
             </tbody>
         </table>
 
@@ -458,11 +460,20 @@ DAY 9-14: LAUNCH
 
         <p><strong>AUTOMATIC:</strong></p>
         <ul>
-            <li>SaaS Configurator creates sub-account from Main Snapshot snapshot</li>
-            <li>WF-OB1: Welcome SMS + onboarding form link</li>
+            <li>SaaS Welcome Email sent immediately ("Activate Your Account")</li>
+        </ul>
+        <p><strong>HUMAN (Admin - within 5 min):</strong></p>
+        <ul>
+            <li>Go to Agency → Sub-Accounts</li>
+            <li>Find new account → Click → Activate</li>
+            <li>This creates the sub-account from Main Snapshot</li>
+        </ul>
+        <p><strong>AUTOMATIC (after activation):</strong></p>
+        <ul>
+            <li>WF-OB1: Onboarding email + Welcome SMS (2 min delay)</li>
             <li>WF-OB2: Reminder loop starts (48h intervals)</li>
         </ul>
-        <p><strong>HUMAN:</strong> Nothing - wait for form</p>
+        <p><strong>HUMAN:</strong> After activation - wait for form</p>
 
         <hr>
 
@@ -631,27 +642,6 @@ DAY 9-14: LAUNCH
 
         <p>See <a href="gmb-setup.html">GMB Setup SOP</a> for complete process.</p>
 
-        <div style="background: #7f1d1d; border: 2px solid #ef4444; padding: 1rem; border-radius: 8px; margin: 1.5rem 0;">
-            <strong style="color: #fecaca;">⚠️ CRITICAL: Set review_request_form_link</strong>
-            <p style="margin-top: 0.5rem; margin-bottom: 0; color: #fecaca;">
-                After setting GMB review link, you MUST set <code>review_request_form_link</code> custom value:<br>
-                <code>https://[domain].com/marketing-form</code><br><br>
-                <strong>If missing:</strong> When client submits a customer to the review funnel, the workflow will loop forever waiting for this link.
-            </p>
-        </div>
-
-        <h4>Task 13b: Set Review Funnel Custom Values (2 min) - AFTER GMB</h4>
-        <table>
-            <thead>
-                <tr><th>Custom Value</th><th>Value</th></tr>
-            </thead>
-            <tbody>
-                <tr><td><code>review_request_form_link</code></td><td><code>https://[domain].com/marketing-form</code></td></tr>
-                <tr><td><code>conversations_link</code></td><td>GHL → Conversations tab URL for this location</td></tr>
-            </tbody>
-        </table>
-        <p><strong>These are required for /my-links page to work properly.</strong></p>
-
         <h4>Task 14: Verify Reviews AI (3 min) - PARALLEL</h4>
         <ul>
             <li>Reputation - Settings - Reviews AI</li>
@@ -693,25 +683,6 @@ DAY 9-14: LAUNCH
   "url": "{{custom_values.company_website_link}}",
   "telephone": "{{custom_values.company_twilio_phone}}"
 }&lt;/script&gt;</code></pre>
-
-        <h4>Task 17b: Build /my-links Page (5 min) - AFTER Custom Values Set</h4>
-        <p>Client-facing page with all their important links. <strong>Requires custom values from Task 13b.</strong></p>
-        <ol>
-            <li>Sites → [Website] → Pages → Add New Page</li>
-            <li>Path: <code>/my-links</code></li>
-            <li>Add Section → Row → Column → Code Element</li>
-            <li>Paste code from <a href="my-links-code.html">My Links Code Block</a></li>
-            <li>Preview and verify all links work</li>
-        </ol>
-        <p><strong>Custom values used:</strong></p>
-        <ul>
-            <li><code>company_name</code> - business name in header</li>
-            <li><code>company_website_link</code> - website card</li>
-            <li><code>company_twilio_phone</code> - phone card (copies to clipboard)</li>
-            <li><code>company_gmb_link</code> - Google Business Profile link</li>
-            <li><code>review_request_form_link</code> - marketing form for review funnel</li>
-            <li><code>conversations_link</code> - GHL conversations tab</li>
-        </ul>
 
         <hr>
 
@@ -851,8 +822,8 @@ DAY 9-14: LAUNCH
 
         <hr>
 
-        <p><em>Last updated: Feb 27, 2026</em></p>
-        <p><em>Version: 3.4 - Synced with onboarding wiki: GMB request moved to WF1 (immediate), WF1.5 GMB Reminder Loop added, WF6 uses help.slatesystems.io (not tutorial video), testimonial ask removed</em></p>
+        <p><em>Last updated: Feb 23, 2026</em></p>
+        <p><em>Version: 3.2 - Added: Escalation section, expanded TOC with day links, fixed task numbering, schema type guidance, improved Task 19 details</em></p>
 
         <div class="page-nav">
             <div></div>
