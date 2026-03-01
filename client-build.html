@@ -209,8 +209,8 @@
             <p><strong>Role:</strong> Fulfillment Specialist</p>
             <p><strong>Trigger:</strong> Deal won, payment taken</p>
             <p><strong>Goal:</strong> Client ready for launch call in &lt;10 days</p>
-            <p><strong>Last Updated:</strong> Feb 23, 2026</p>
-            <p><strong>Version:</strong> 3.2 - Added escalation, TOC day links, schema guidance</p>
+            <p><strong>Last Updated:</strong> Mar 1, 2026</p>
+            <p><strong>Version:</strong> 3.3 - Added GHL API key creation steps to Task 4, clarified form review location (Baserow 946)</p>
         </div>
 
         <button class="toc-toggle" onclick="toggleToc()">
@@ -489,14 +489,28 @@ DAY 9-14: LAUNCH
         <p><strong>HUMAN TASKS (all parallel):</strong></p>
 
         <h4>Task 1: Review Form Completeness (2 min)</h4>
-        <p>Check onboarding form for:</p>
+
+        <p><strong>Where to check:</strong> Baserow Table 946</p>
+        <ol>
+            <li>Go to <a href="https://baserow.slatesystems.io" target="_blank">baserow.slatesystems.io</a></li>
+            <li>Open <strong>Content Gen</strong> table (946)</li>
+            <li>Find the row by <code>client_name</code> (most recent at top)</li>
+            <li>Expand <code>form_data</code> field to see full submission</li>
+        </ol>
+
+        <p><strong>Check for:</strong></p>
         <ul>
             <li class="checkbox-item"><input type="checkbox" disabled> Required fields filled (name, business, services, areas, hours)</li>
             <li class="checkbox-item"><input type="checkbox" disabled> Services make sense for niche</li>
             <li class="checkbox-item"><input type="checkbox" disabled> Logo uploaded OR "needs logo" checked</li>
             <li class="checkbox-item"><input type="checkbox" disabled> Contact info complete</li>
         </ul>
-        <p><strong>If incomplete:</strong> SMS client for missing info</p>
+
+        <p><strong>If incomplete:</strong> SMS client for missing info (use Slate Ops → Conversations)</p>
+
+        <blockquote>
+            <strong>Permissions needed:</strong> Baserow account with access to table 946. If you don't have access, ask Dan to add you.
+        </blockquote>
 
         <h4>Task 2: Purchase Domain (5 min)</h4>
         <ol>
@@ -527,18 +541,45 @@ DAY 9-14: LAUNCH
             <li>Purchase</li>
         </ol>
 
-        <h4>Task 4: Submit Build Notes (2 min)</h4>
-        <p>Triggers Content Generator to run:</p>
+        <h4>Task 4: Submit Build Notes (5 min)</h4>
+        <p>Triggers Content Generator to run. <strong>Requires GHL API key from client sub-account.</strong></p>
         <div class="callout" style="border-left-color: #22c55e;">
             <strong>Build Notes Form:</strong><br>
             <a href="https://api.slatesystems.io/widget/form/O07QiRk5BZkddn7DgKI1" target="_blank" style="color: var(--orange); font-size: 1rem;">https://api.slatesystems.io/widget/form/O07QiRk5BZkddn7DgKI1</a>
         </div>
+
+        <p><strong>Step 1: Create Private Integration (API Key)</strong></p>
+        <p>In the <em>client's sub-account</em> (not Slate Ops):</p>
+        <ol>
+            <li>Settings → Integrations → Private Integrations</li>
+            <li>Click <strong>Create Integration</strong></li>
+            <li>Name it: <code>Slate Content Generator</code></li>
+            <li>Select ONLY these 3 scopes:
+                <ul>
+                    <li><code>locations/customValues.readonly</code> - View Custom Values</li>
+                    <li><code>locations/customValues.write</code> - Edit Custom Values</li>
+                    <li><code>medias.write</code> - Edit Medias</li>
+                </ul>
+            </li>
+            <li>Click Create</li>
+            <li><strong>COPY THE TOKEN IMMEDIATELY</strong> - it's only shown once! (starts with <code>pit-</code>)</li>
+        </ol>
+
+        <blockquote style="background: #7f1d1d; border-left-color: #ef4444;">
+            <strong>Why is this needed?</strong> Each GHL sub-account is isolated. Our agency API cannot write to client sub-accounts. The Private Integration token gives permission to update ONLY that client's custom values.
+        </blockquote>
+
+        <p><strong>Step 2: Submit the Form</strong></p>
         <ol>
             <li>Open the Build Notes form (link above)</li>
-            <li>Enter location_id</li>
+            <li>Enter <strong>Location ID</strong> (from client sub-account URL)</li>
+            <li>Paste the <strong>GHL API Key</strong> (the <code>pit-</code> token you just copied)</li>
+            <li>Enter business name (must match onboarding)</li>
             <li>Add any corrections/notes</li>
-            <li>Submit - AI generates ~324 custom values</li>
+            <li>Submit - AI generates ~324 custom values and writes them to the client sub-account</li>
         </ol>
+
+        <p><em>Note: The API key is stored in Baserow after first use. Future regenerations won't need it again.</em></p>
 
         <h4>After Tasks 1-4: Update Pipeline</h4>
         <ul>
@@ -822,8 +863,8 @@ DAY 9-14: LAUNCH
 
         <hr>
 
-        <p><em>Last updated: Feb 23, 2026</em></p>
-        <p><em>Version: 3.2 - Added: Escalation section, expanded TOC with day links, fixed task numbering, schema type guidance, improved Task 19 details</em></p>
+        <p><em>Last updated: Mar 1, 2026</em></p>
+        <p><em>Version: 3.3 - Added GHL API key creation (Task 4), Baserow 946 as form review location (Task 1)</em></p>
 
         <div class="page-nav">
             <div></div>
